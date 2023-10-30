@@ -2,6 +2,7 @@ package com.tp.neuralscan.administrator.service.impl;
 
 
 import com.tp.neuralscan.administrator.model.DoctorEntity;
+import com.tp.neuralscan.administrator.repository.AdministratorEntityRepository;
 import com.tp.neuralscan.administrator.repository.DoctorEntityRepository;
 import com.tp.neuralscan.administrator.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     private DoctorEntityRepository doctorEntityRepository;
+    @Autowired
+    private AdministratorEntityRepository administratorEntityRepository;
 
     @Override
     public List<DoctorEntity> getAllDoctors() {
@@ -24,7 +27,8 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public DoctorEntity createDoctor(DoctorEntity doctorEntity) {
+    public DoctorEntity createDoctor(DoctorEntity doctorEntity, Long administratorId) {
+        doctorEntity.setAdministratorEntity(administratorEntityRepository.findById(administratorId).orElse(null));
         return doctorEntityRepository.save(doctorEntity);
     }
 
