@@ -9,6 +9,6 @@ import java.util.List;
 public interface ReportService {
 
     List<ReportEntity> getAllReports();
-    ReportEntity createReport(ReportEntity ReportEntity);
+    ReportEntity createReport(ReportEntity ReportEntity, Long patientId);
     ReportEntity updateReport(Long id, ReportEntity ReportEntity);
 }

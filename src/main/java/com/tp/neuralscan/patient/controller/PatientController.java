@@ -39,9 +39,9 @@ public class PatientController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created Patient"),
             @ApiResponse(responseCode = "404", description = "Patient not created")})
-    @PostMapping("/create")
-    public PatientResource createPatient(@RequestBody CreatePatientResource createPatientResource) {
-        return patientMapper.toResource(patientService.createPatient(patientMapper.toEntity(createPatientResource)));
+    @PostMapping("{doctorId}/create")
+    public PatientResource createPatient(@RequestBody CreatePatientResource createPatientResource, @PathVariable("doctorId") Long doctorId) {
+        return patientMapper.toResource(patientService.createPatient(patientMapper.toEntity(createPatientResource), doctorId));
     }
 
     @Operation(summary = "Update Patient", description = "Update Patient")

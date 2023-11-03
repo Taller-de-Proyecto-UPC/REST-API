@@ -2,6 +2,7 @@ package com.tp.neuralscan.patient.service.impl;
 
 
 import com.tp.neuralscan.patient.model.ReportEntity;
+import com.tp.neuralscan.patient.repository.PatientEntityRepository;
 import com.tp.neuralscan.patient.repository.ReportEntityRepository;
 import com.tp.neuralscan.patient.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,18 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private ReportEntityRepository reportEntityRepository;
 
+    @Autowired
+    private PatientEntityRepository patientEntityRepository;
+
     @Override
     public List<ReportEntity> getAllReports() {
         return reportEntityRepository.findAll();
     }
 
     @Override
-    public ReportEntity createReport(ReportEntity ReportEntity) {
-        return reportEntityRepository.save(ReportEntity);
+    public ReportEntity createReport(ReportEntity reportEntity,Long patientId) {
+        reportEntity.setPatientEntity(patientEntityRepository.findById(patientId).orElse(null));
+        return reportEntityRepository.save(reportEntity);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.tp.neuralscan.patient.model;
 
+import com.tp.neuralscan.administrator.model.DoctorEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,8 +26,8 @@ public class ReportEntity {
     @Column(name = "comment", length = 50, nullable = true)
     private String comment;
 
-    @Lob
-    @Column(name = "image_data", nullable = true)
-    private byte[] imageData;
+    @ManyToOne
+    @JoinColumn(name = "patient_entity_id")
+    private PatientEntity patientEntity;
 
 }

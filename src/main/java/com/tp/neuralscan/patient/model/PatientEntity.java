@@ -1,7 +1,12 @@
 package com.tp.neuralscan.patient.model;
 
+import com.tp.neuralscan.administrator.model.AdministratorEntity;
+import com.tp.neuralscan.administrator.model.DoctorEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Getter
@@ -25,35 +30,11 @@ public class PatientEntity {
     @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "doctor_entity_id")
+    private DoctorEntity doctorEntity;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "patientEntity", orphanRemoval = true)
+    private List<ReportEntity> reports  = new ArrayList<>();
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

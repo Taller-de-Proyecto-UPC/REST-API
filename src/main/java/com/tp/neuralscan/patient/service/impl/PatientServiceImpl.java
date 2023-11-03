@@ -1,6 +1,7 @@
 package com.tp.neuralscan.patient.service.impl;
 
 
+import com.tp.neuralscan.administrator.repository.DoctorEntityRepository;
 import com.tp.neuralscan.patient.model.PatientEntity;
 import com.tp.neuralscan.patient.repository.PatientEntityRepository;
 import com.tp.neuralscan.patient.service.PatientService;
@@ -18,13 +19,18 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientEntityRepository patientEntityRepository;
 
+    @Autowired
+    private DoctorEntityRepository doctorEntityRepository;
+
+
     @Override
     public List<PatientEntity> getAllPatients() {
         return patientEntityRepository.findAll();
     }
 
     @Override
-    public PatientEntity createPatient(PatientEntity patientEntity) {
+    public PatientEntity createPatient(PatientEntity patientEntity, Long doctorId) {
+        patientEntity.setDoctorEntity(doctorEntityRepository.findById(doctorId).orElse(null));
         return patientEntityRepository.save(patientEntity);
     }
 

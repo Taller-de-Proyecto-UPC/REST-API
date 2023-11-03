@@ -1,8 +1,12 @@
 package com.tp.neuralscan.administrator.model;
 
+import com.tp.neuralscan.patient.model.PatientEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Getter
@@ -32,4 +36,7 @@ public class DoctorEntity {
     @ManyToOne
     @JoinColumn(name = "administrator_entity_id")
     private AdministratorEntity administratorEntity;
+
+    @OneToMany(mappedBy = "doctorEntity", orphanRemoval = true)
+    private List<PatientEntity> patients = new ArrayList<>();
 }

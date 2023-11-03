@@ -9,6 +9,6 @@ import java.util.List;
 public interface PatientService {
 
     List<PatientEntity> getAllPatients();
-    PatientEntity createPatient(PatientEntity Patient);
+    PatientEntity createPatient(PatientEntity Patient, Long doctorId);
     PatientEntity updatePatient(Long id, PatientEntity Patient);
 }
