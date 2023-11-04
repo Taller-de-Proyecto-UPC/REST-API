@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/administrator")
 @CrossOrigin
-public class AdministratorController {
+public class    AdministratorController {
 
     @Autowired
     private AdministratorService administratorService;
