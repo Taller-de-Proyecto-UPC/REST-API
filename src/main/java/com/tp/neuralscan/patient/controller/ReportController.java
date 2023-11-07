@@ -43,7 +43,7 @@ public class ReportController {
     @Autowired
     private ReportMapper reportMapper;
 
-    public static final String DIRECTORY = System.getProperty("user.home")+ "/Downloads/uploads";
+    public static final String DIRECTORY = "C:/Users/stefa/OneDrive/Escritorio/Frontend/webapp/src/assets/upload";
     @Operation(summary = "Get all Reports", description = "Get all Reports")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found all Reports"),
