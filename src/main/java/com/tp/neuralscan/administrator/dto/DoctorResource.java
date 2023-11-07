@@ -11,5 +11,6 @@ public class DoctorResource {
     private String name;
     private String lastName;
     private String email;
-    private AdministratorResource administrator;
+    private String password;
+    //private AdministratorResource administrator;
 }

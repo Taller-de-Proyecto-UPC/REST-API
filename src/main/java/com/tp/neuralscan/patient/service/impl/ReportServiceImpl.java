@@ -1,6 +1,7 @@
 package com.tp.neuralscan.patient.service.impl;
 
 
+import com.tp.neuralscan.patient.model.PatientEntity;
 import com.tp.neuralscan.patient.model.ReportEntity;
 import com.tp.neuralscan.patient.repository.PatientEntityRepository;
 import com.tp.neuralscan.patient.repository.ReportEntityRepository;
@@ -40,6 +41,12 @@ public class ReportServiceImpl implements ReportService {
         report.setDescription(reportEntity.getDescription());
         report.setComment(reportEntity.getComment());
         return reportEntityRepository.save(reportEntity);
+    }
+
+    @Override
+    public List<ReportEntity> getAllReportsByPatientId(Long patientId) {
+        PatientEntity patient = patientEntityRepository.findById(patientId).orElse(null);
+        return reportEntityRepository.findByPatientEntity(patient);
     }
 
 }

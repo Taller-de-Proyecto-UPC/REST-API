@@ -11,4 +11,6 @@ public interface ReportService {
     List<ReportEntity> getAllReports();
     ReportEntity createReport(ReportEntity ReportEntity, Long patientId);
     ReportEntity updateReport(Long id, ReportEntity ReportEntity);
+
+    List<ReportEntity> getAllReportsByPatientId(Long patientId);
 }

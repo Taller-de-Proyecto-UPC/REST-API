@@ -11,10 +11,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "Doctor", description = "Doctor API")
 @RestController
@@ -64,6 +65,12 @@ public class DoctorController {
     public DoctorResource updateDoctor(@PathVariable(name = "id") Long id, @RequestBody UpdateDoctorResource updateDoctorResource) {
         return doctorMapper.toResource(doctorService.updateDoctor(id,
                 doctorMapper.toEntity(updateDoctorResource)));
+    }
+
+    @Operation(summary = "Delete doctor", description = "Delete doctor")
+    @DeleteMapping("{id}")
+    public Optional<ResponseEntity<Object>> deleteDoctor(@PathVariable Long id) {
+        return doctorService.deleteDoctor(id);
     }
 
 }

@@ -7,10 +7,12 @@ import com.tp.neuralscan.administrator.repository.DoctorEntityRepository;
 import com.tp.neuralscan.administrator.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -38,7 +40,10 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setName(doctorEntity.getName());
         doctor.setLastName(doctorEntity.getLastName());
         doctor.setEmail(doctorEntity.getEmail());
-        return doctorEntityRepository.save(doctorEntity);
+        doctor.setPassword(doctorEntity.getPassword());
+        doctorEntity.setAdministratorEntity(doctor.getAdministratorEntity());
+
+        return doctorEntityRepository.save(doctor);
     }
 
     @Override
@@ -47,5 +52,13 @@ public class DoctorServiceImpl implements DoctorService {
         if (doctorEntity == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
         return doctorEntity;
+    }
+
+    @Override
+    public Optional<ResponseEntity<Object>> deleteDoctor(Long doctorId) {
+        return doctorEntityRepository.findById(doctorId).map(doctor -> {
+            doctorEntityRepository.delete(doctor);
+                return ResponseEntity.ok().build();
+            });
     }
 }

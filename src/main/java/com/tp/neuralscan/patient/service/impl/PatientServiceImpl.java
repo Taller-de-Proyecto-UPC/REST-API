@@ -40,7 +40,7 @@ public class PatientServiceImpl implements PatientService {
         patient.setName(patientEntity.getName());
         patient.setLastName(patientEntity.getLastName());
         patient.setEmail(patientEntity.getEmail());
-        return patientEntityRepository.save(patientEntity);
+        return patientEntityRepository.save(patient);
     }
 
 }

@@ -73,11 +73,17 @@ public class ReportController {
                 reportMapper.toEntity(updateReportResource)));
     }
 
-    @PostMapping ("/report/upload")
-    public ResponseEntity <List<String>> uploadFiles(@RequestParam("files")List<MultipartFile> multipartFiles) throws IOException{
+    @Operation(summary = "Get all appointments by patientId", description = "Get all appointments by patientId")
+    @GetMapping("/{patientId}")
+    public List<ReportResource> getAllReportsByPatientId(@PathVariable Long patientId) {
+        return reportMapper.toResource(reportService.getAllReportsByPatientId(patientId));
+    }
+
+    @PostMapping ("{patientId}/upload")
+    public ResponseEntity <List<String>> uploadFiles(@PathVariable Long patientId, @RequestParam("files")List<MultipartFile> multipartFiles) throws IOException{
         List<String> filenames = new ArrayList<>();
         for (MultipartFile file : multipartFiles){
-            String filename = StringUtils.cleanPath(file.getOriginalFilename());
+            String filename = StringUtils.cleanPath(patientId.toString()+".png");
             Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
             copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
             filenames.add(filename);
@@ -87,9 +93,9 @@ public class ReportController {
 
     }
 
-    @GetMapping("report/download/{filename}")
+    @GetMapping("/download/{filename}")
     public ResponseEntity<Resource> downloadFile(@PathVariable("filename") String filename) throws IOException {
-        Path filepath = get(DIRECTORY).toAbsolutePath().normalize().resolve(filename);
+        Path filepath = get(DIRECTORY).toAbsolutePath().normalize().resolve(filename+".png");
 
         if(!Files.exists(filepath)) {
             throw new FileNotFoundException(filename + " was not found");

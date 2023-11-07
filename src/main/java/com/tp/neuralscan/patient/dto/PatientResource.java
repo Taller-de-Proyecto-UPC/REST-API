@@ -11,5 +11,5 @@ public class PatientResource {
     private String name;
     private String lastName;
     private String email;
-    private DoctorResource doctor;
+    //private DoctorResource doctor;
 }
