@@ -43,7 +43,7 @@ public class ReportController {
     @Autowired
     private ReportMapper reportMapper;
 
-    public static final String DIRECTORY = "C:/Users/stefa/OneDrive/Escritorio/Frontend/webapp/src/assets/upload";
+    public static final String DIRECTORY = "C:/Users/stefa/OneDrive/Escritorio/TP1/Frontend/webapp/src/assets/upload";
     @Operation(summary = "Get all Reports", description = "Get all Reports")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found all Reports"),
@@ -83,7 +83,7 @@ public class ReportController {
     public ResponseEntity <List<String>> uploadFiles(@PathVariable Long patientId, @RequestParam("files")List<MultipartFile> multipartFiles) throws IOException{
         List<String> filenames = new ArrayList<>();
         for (MultipartFile file : multipartFiles){
-            String filename = StringUtils.cleanPath(patientId.toString()+".png");
+            String filename = StringUtils.cleanPath(patientId.toString()+".jpg");
             Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
             copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
             filenames.add(filename);
@@ -95,7 +95,7 @@ public class ReportController {
 
     @GetMapping("/download/{filename}")
     public ResponseEntity<Resource> downloadFile(@PathVariable("filename") String filename) throws IOException {
-        Path filepath = get(DIRECTORY).toAbsolutePath().normalize().resolve(filename+".png");
+        Path filepath = get(DIRECTORY).toAbsolutePath().normalize().resolve(filename+".jpg");
 
         if(!Files.exists(filepath)) {
             throw new FileNotFoundException(filename + " was not found");
