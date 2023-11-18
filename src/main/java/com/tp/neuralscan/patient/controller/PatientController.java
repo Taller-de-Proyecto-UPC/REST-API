@@ -10,9 +10,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "Patient", description = "Patient API")
 @RestController
@@ -52,6 +54,12 @@ public class PatientController {
     public PatientResource updatePatient(@PathVariable(name = "id") Long id, @RequestBody UpdatePatientResource updatePatientResource) {
         return patientMapper.toResource(patientService.updatePatient(id,
                 patientMapper.toEntity(updatePatientResource)));
+    }
+
+    @Operation(summary = "Delete patient", description = "Delete patient")
+    @DeleteMapping("{id}")
+    public Optional<ResponseEntity<Object>> deleteDoctor(@PathVariable Long id) {
+        return patientService.deletePatient(id);
     }
 
 }

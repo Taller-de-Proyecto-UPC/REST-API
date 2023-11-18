@@ -7,10 +7,12 @@ import com.tp.neuralscan.patient.repository.PatientEntityRepository;
 import com.tp.neuralscan.patient.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -41,6 +43,14 @@ public class PatientServiceImpl implements PatientService {
         patient.setLastName(patientEntity.getLastName());
         patient.setEmail(patientEntity.getEmail());
         return patientEntityRepository.save(patient);
+    }
+
+    @Override
+    public Optional<ResponseEntity<Object>> deletePatient(Long patientId) {
+        return patientEntityRepository.findById(patientId).map(patient -> {
+            patientEntityRepository.delete(patient);
+            return ResponseEntity.ok().build();
+        });
     }
 
 }

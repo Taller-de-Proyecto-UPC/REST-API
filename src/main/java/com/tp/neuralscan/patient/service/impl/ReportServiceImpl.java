@@ -40,7 +40,7 @@ public class ReportServiceImpl implements ReportService {
         report.setSummary(reportEntity.getSummary());
         report.setDescription(reportEntity.getDescription());
         report.setComment(reportEntity.getComment());
-        return reportEntityRepository.save(reportEntity);
+        return reportEntityRepository.save(report);
     }
 
     @Override
