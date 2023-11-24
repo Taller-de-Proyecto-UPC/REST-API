@@ -43,7 +43,7 @@ public class ReportController {
     @Autowired
     private ReportMapper reportMapper;
 
-    public static final String DIRECTORY = "C:/Users/stefa/OneDrive/Escritorio/TP1/Frontend/webapp/src/assets/upload";
+    public static final String DIRECTORY = "C:/Users/UsuarioTK/Desktop/NeuralScan Application/webapp/src/assets/upload";
     @Operation(summary = "Get all Reports", description = "Get all Reports")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found all Reports"),

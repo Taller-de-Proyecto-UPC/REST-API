@@ -9,4 +9,7 @@ public class UpdatePatientResource {
     private String name;
     private String lastName;
     private String email;
+    private String phone;
+    private String address;
+    private String birthday;
 }

@@ -42,6 +42,14 @@ public class PatientServiceImpl implements PatientService {
         patient.setName(patientEntity.getName());
         patient.setLastName(patientEntity.getLastName());
         patient.setEmail(patientEntity.getEmail());
+        patient.setPhone(patientEntity.getPhone());
+        patient.setAddress(patientEntity.getAddress());
+        patient.setBirthday(patientEntity.getBirthday());
+        patient.setBloodType(patientEntity.getBloodType());
+        patient.setDiseases(patientEntity.getDiseases());
+        patient.setWeight(patientEntity.getWeight());
+        patient.setHeight(patientEntity.getHeight());
+
         return patientEntityRepository.save(patient);
     }
 

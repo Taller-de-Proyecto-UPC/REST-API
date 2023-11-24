@@ -1,16 +1,20 @@
 package com.tp.neuralscan.administrator.dto;
 
-import com.tp.neuralscan.administrator.model.AdministratorEntity;
+import com.tp.neuralscan.person.dto.UserResource;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class DoctorResource {
-    private Long id;
+    private Long doctorId;
     private String name;
     private String lastName;
     private String email;
-    private String password;
-    //private AdministratorResource administrator;
+    private String phone;
+    private String address;
+    private String birthday;
+    private String CIP;
+    private String specialty;
+    private UserResource user;
 }
