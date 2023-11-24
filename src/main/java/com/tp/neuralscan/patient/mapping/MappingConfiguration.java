@@ -14,5 +14,9 @@ public class MappingConfiguration {
     public ReportMapper reportMapper () {
         return new ReportMapper();
     }
+    @Bean
+    public ImageMapper imageMapper () {
+        return new ImageMapper();
+    }
 
 }
