@@ -4,17 +4,21 @@ package com.tp.neuralscan.administrator.service.impl;
 import com.tp.neuralscan.administrator.model.DoctorEntity;
 import com.tp.neuralscan.administrator.repository.DoctorEntityRepository;
 import com.tp.neuralscan.administrator.service.DoctorService;
+import com.tp.neuralscan.person.model.UserEntity;
 import com.tp.neuralscan.person.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
+
+    private final Logger logger = LoggerFactory.getLogger(DoctorServiceImpl.class);
 
     @Autowired
     private DoctorEntityRepository doctorEntityRepository;
@@ -30,7 +34,10 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public DoctorEntity createDoctor(DoctorEntity doctorEntity) {
-        //doctorEntity.setUserEntity(userEntityRepository.findById(userId).orElse(null));
+        UserEntity user = userEntityRepository.save(doctorEntity.getUserEntity());
+        logger.info("User info: {}", user);
+
+        doctorEntity.setUserEntity(userEntityRepository.findById(user.getId()).orElse(null));
         return doctorEntityRepository.save(doctorEntity);
     }
 
