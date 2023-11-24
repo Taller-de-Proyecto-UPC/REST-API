@@ -1,41 +1,35 @@
 package com.tp.neuralscan.administrator.model;
 
 import com.tp.neuralscan.patient.model.PatientEntity;
+import com.tp.neuralscan.person.model.PersonEntity;
+import com.tp.neuralscan.person.model.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @Getter
 @Setter
 @Entity
 @Table(name = "doctor_entity")
 @NoArgsConstructor
 @AllArgsConstructor
-public class DoctorEntity {
+public class DoctorEntity extends PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
+    @Column(name = "specialty", length = 50, nullable = false)
+    private String specialty;
 
-    @Column(name = "last_name", length = 50, nullable = false)
-    private String lastName;
+    @Column(name = "CIP", length = 50, nullable = false)
+    private String CIP;
 
-    @Column(name = "password", length = 50, nullable = false)
-    private String password;
-
-    @Column(name = "email", length = 50, nullable = false)
-    private String email;
-
-    @ManyToOne
-    @JoinColumn(name = "administrator_entity_id")
-    private AdministratorEntity administratorEntity;
+    @OneToOne
+    @JoinColumn(name = "user_entity_id")
+    private UserEntity userEntity;
 
     @OneToMany(mappedBy = "doctorEntity", orphanRemoval = true)
     private List<PatientEntity> patients = new ArrayList<>();

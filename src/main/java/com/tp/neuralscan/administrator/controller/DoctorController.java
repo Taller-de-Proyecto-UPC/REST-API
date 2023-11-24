@@ -38,23 +38,13 @@ public class DoctorController {
         return doctorMapper.toResource(doctorService.getAllDoctors());
     }
 
-    @Operation(summary = "Get doctors by email", description = "Get Doctors by email")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the Doctor"),
-            @ApiResponse(responseCode = "404", description = "Doctor not found")})
-    @PostMapping("/login")
-    public DoctorResource loginDoctor(@RequestBody LoginPredictionResource loginPredictionResource) {
-        return doctorMapper.toResource(doctorService.loginDoctor(loginPredictionResource.getEmail(),
-                loginPredictionResource.getPassword()));
-    }
-
     @Operation(summary = "Create Doctor", description = "Create Doctor")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created Doctor"),
             @ApiResponse(responseCode = "404", description = "Doctor not created")})
-    @PostMapping("/{administratorId}/create")
-    public DoctorResource createDoctor(@RequestBody CreateDoctorResource createDoctorResource, @PathVariable("administratorId") Long administratorId) {
-        return doctorMapper.toResource(doctorService.createDoctor(doctorMapper.toEntity(createDoctorResource),administratorId));
+    @PostMapping("/{userId}/create")
+    public DoctorResource createDoctor(@RequestBody CreateDoctorResource createDoctorResource) {
+        return doctorMapper.toResource(doctorService.createDoctor(doctorMapper.toEntity(createDoctorResource)));
     }
 
     @Operation(summary = "Update Doctor", description = "Update Doctor")

@@ -11,10 +11,8 @@ import java.util.Optional;
 public interface DoctorService {
 
     List<DoctorEntity> getAllDoctors();
-    DoctorEntity createDoctor(DoctorEntity DoctorEntity, Long administratorId);
+    DoctorEntity createDoctor(DoctorEntity DoctorEntity);
     DoctorEntity updateDoctor(Long id, DoctorEntity DoctorEntity);
-    DoctorEntity loginDoctor(String email, String password);
-
     Optional<ResponseEntity<Object>> deleteDoctor(Long doctorId);
 
 }

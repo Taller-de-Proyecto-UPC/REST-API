@@ -1,5 +1,6 @@
 package com.tp.neuralscan.administrator.dto;
 
+import com.tp.neuralscan.person.dto.UserResource;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,11 @@ public class UpdateDoctorResource {
     private String name;
     private String lastName;
     private String email;
-    private String password;
+    private String phone;
+    private String address;
+    private String birthday;
+    private String specialty;
+    private String CIP;
+    private UserResource user;
 
 }

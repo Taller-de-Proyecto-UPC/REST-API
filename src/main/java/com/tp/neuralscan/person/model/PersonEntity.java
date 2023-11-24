@@ -1,4 +1,4 @@
-package com.tp.neuralscan.administrator.model;
+package com.tp.neuralscan.person.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,10 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "administrator_entity")
+@Table(name = "person_entity")
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdministratorEntity {
+@Inheritance(strategy =  InheritanceType.JOINED)
+public class PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,17 +24,18 @@ public class AdministratorEntity {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "last_name", length = 50, nullable = false)
+    @Column(name = "lastName", length = 50, nullable = false)
     private String lastName;
-
-    @Column(name = "password", length = 50, nullable = false)
-    private String password;
 
     @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "administratorEntity", orphanRemoval = true)
-    private List<DoctorEntity> doctors = new ArrayList<>();
+    @Column(name = "phone", length = 50, nullable = false)
+    private String phone;
 
+    @Column(name = "address", length = 50, nullable = false)
+    private String address;
 
+    @Column(name = "birthday", length = 50, nullable = false)
+    private String birthday;
 }
