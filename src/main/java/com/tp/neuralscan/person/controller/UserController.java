@@ -53,7 +53,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created User"),
             @ApiResponse(responseCode = "404", description = "User not created")})
-    @PostMapping("/{administratorId}/create")
+    @PostMapping("/create")
     public UserResource createUser(@RequestBody CreateUserResource CreateUserResource) {
         return userMapper.toResource(userService.createUser(userMapper.toEntity(CreateUserResource)));
     }
