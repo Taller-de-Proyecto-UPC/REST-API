@@ -1,6 +1,5 @@
 package com.tp.neuralscan.administrator.mapping;
 
-
 import com.tp.neuralscan.administrator.dto.CreateAdministratorResource;
 import com.tp.neuralscan.administrator.dto.AdministratorResource;
 import com.tp.neuralscan.administrator.dto.UpdateAdministratorResource;

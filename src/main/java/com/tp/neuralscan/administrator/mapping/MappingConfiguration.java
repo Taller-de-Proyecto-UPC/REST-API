@@ -15,4 +15,9 @@ public class MappingConfiguration {
         return new AdministratorMapper();
     }
 
+    @Bean
+    public PersonMapper personMapper () {
+        return new PersonMapper();
+    }
+
 }
