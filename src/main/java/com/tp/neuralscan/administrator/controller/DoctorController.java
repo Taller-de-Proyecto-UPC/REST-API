@@ -6,6 +6,8 @@ import com.tp.neuralscan.administrator.dto.LoginPredictionResource;
 import com.tp.neuralscan.administrator.dto.UpdateDoctorResource;
 import com.tp.neuralscan.administrator.mapping.DoctorMapper;
 import com.tp.neuralscan.administrator.service.DoctorService;
+import com.tp.neuralscan.person.mapping.UserMapper;
+import com.tp.neuralscan.person.model.UserEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,6 +31,9 @@ public class DoctorController {
     @Autowired
     private DoctorMapper doctorMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Operation(summary = "Get all doctors", description = "Get all Doctors")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found all Doctors"),
@@ -38,23 +43,15 @@ public class DoctorController {
         return doctorMapper.toResource(doctorService.getAllDoctors());
     }
 
-    @Operation(summary = "Get doctors by email", description = "Get Doctors by email")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the Doctor"),
-            @ApiResponse(responseCode = "404", description = "Doctor not found")})
-    @PostMapping("/login")
-    public DoctorResource loginDoctor(@RequestBody LoginPredictionResource loginPredictionResource) {
-        return doctorMapper.toResource(doctorService.loginDoctor(loginPredictionResource.getEmail(),
-                loginPredictionResource.getPassword()));
-    }
-
     @Operation(summary = "Create Doctor", description = "Create Doctor")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created Doctor"),
             @ApiResponse(responseCode = "404", description = "Doctor not created")})
-    @PostMapping("/{administratorId}/create")
-    public DoctorResource createDoctor(@RequestBody CreateDoctorResource createDoctorResource, @PathVariable("administratorId") Long administratorId) {
-        return doctorMapper.toResource(doctorService.createDoctor(doctorMapper.toEntity(createDoctorResource),administratorId));
+    @PostMapping("/create")
+    public DoctorResource createDoctor(@RequestBody CreateDoctorResource createDoctorResource) {
+        UserEntity userEntity = userMapper.toEntity(createDoctorResource.getUser());
+
+        return doctorMapper.toResource(doctorService.createDoctor(doctorMapper.toEntity(createDoctorResource), userEntity));
     }
 
     @Operation(summary = "Update Doctor", description = "Update Doctor")

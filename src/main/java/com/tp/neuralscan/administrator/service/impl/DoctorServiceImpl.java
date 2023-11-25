@@ -2,15 +2,15 @@ package com.tp.neuralscan.administrator.service.impl;
 
 
 import com.tp.neuralscan.administrator.model.DoctorEntity;
-import com.tp.neuralscan.administrator.repository.AdministratorEntityRepository;
 import com.tp.neuralscan.administrator.repository.DoctorEntityRepository;
 import com.tp.neuralscan.administrator.service.DoctorService;
+import com.tp.neuralscan.person.model.UserEntity;
+import com.tp.neuralscan.person.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +18,14 @@ import java.util.Optional;
 @Service
 public class DoctorServiceImpl implements DoctorService {
 
+    private final Logger logger = LoggerFactory.getLogger(DoctorServiceImpl.class);
+
     @Autowired
     private DoctorEntityRepository doctorEntityRepository;
+
     @Autowired
-    private AdministratorEntityRepository administratorEntityRepository;
+    private UserEntityRepository userEntityRepository;
+
 
     @Override
     public List<DoctorEntity> getAllDoctors() {
@@ -29,8 +33,9 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public DoctorEntity createDoctor(DoctorEntity doctorEntity, Long administratorId) {
-        doctorEntity.setAdministratorEntity(administratorEntityRepository.findById(administratorId).orElse(null));
+    public DoctorEntity createDoctor(DoctorEntity doctorEntity, UserEntity userEntity) {
+        UserEntity user = userEntityRepository.save(userEntity);
+        doctorEntity.setUserEntity(user);
         return doctorEntityRepository.save(doctorEntity);
     }
 
@@ -40,18 +45,13 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setName(doctorEntity.getName());
         doctor.setLastName(doctorEntity.getLastName());
         doctor.setEmail(doctorEntity.getEmail());
-        doctor.setPassword(doctorEntity.getPassword());
-        doctorEntity.setAdministratorEntity(doctor.getAdministratorEntity());
-
+        doctor.setPhone(doctorEntity.getPhone());
+        doctor.setAddress(doctorEntity.getAddress());
+        doctor.setBirthday(doctorEntity.getBirthday());
+        doctor.setSpecialty(doctorEntity.getSpecialty());
+        doctor.setCIP(doctorEntity.getCIP());
+        //doctorEntity.setUserEntity(doctor.getUserEntity());
         return doctorEntityRepository.save(doctor);
-    }
-
-    @Override
-    public DoctorEntity loginDoctor(String email, String password) {
-        DoctorEntity doctorEntity = doctorEntityRepository.findByEmailAndPassword(email, password);
-        if (doctorEntity == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
-        return doctorEntity;
     }
 
     @Override

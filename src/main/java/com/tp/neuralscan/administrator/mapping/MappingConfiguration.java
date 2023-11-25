@@ -10,9 +10,6 @@ public class MappingConfiguration {
     public DoctorMapper doctorMapper() {
         return new DoctorMapper();
     }
-    @Bean
-    public AdministratorMapper administratorMapper () {
-        return new AdministratorMapper();
-    }
+
 
 }
