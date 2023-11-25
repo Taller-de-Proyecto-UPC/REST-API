@@ -90,7 +90,6 @@ public class ReportController {
         }
 
         return ResponseEntity.ok().body(filenames);
-
     }
 
     @GetMapping("/download/{filename}")

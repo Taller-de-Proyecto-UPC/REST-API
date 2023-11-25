@@ -5,6 +5,7 @@ import com.tp.neuralscan.person.model.PersonEntity;
 import com.tp.neuralscan.person.model.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "doctor_entity")
 @NoArgsConstructor
 @AllArgsConstructor
+@Transactional
 public class DoctorEntity extends PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +30,7 @@ public class DoctorEntity extends PersonEntity {
     private String CIP;
 
     @OneToOne
-    @JoinColumn(name = "user_entity_id")
+    @JoinColumn(name = "user_entity", referencedColumnName = "id")
     private UserEntity userEntity;
 
     @OneToMany(mappedBy = "doctorEntity", orphanRemoval = true)
