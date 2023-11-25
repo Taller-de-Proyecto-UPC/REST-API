@@ -79,11 +79,11 @@ public class ReportController {
         return reportMapper.toResource(reportService.getAllReportsByPatientId(patientId));
     }
 
-    @PostMapping ("{patientId}/upload")
-    public ResponseEntity <List<String>> uploadFiles(@PathVariable Long patientId, @RequestParam("files")List<MultipartFile> multipartFiles) throws IOException{
+    @PostMapping ("{reportId}/upload")
+    public ResponseEntity <List<String>> uploadFiles(@PathVariable Long reportId, @RequestParam("files")List<MultipartFile> multipartFiles) throws IOException{
         List<String> filenames = new ArrayList<>();
         for (MultipartFile file : multipartFiles){
-            String filename = StringUtils.cleanPath(patientId.toString()+".jpg");
+            String filename = StringUtils.cleanPath(reportId.toString()+".jpg");
             Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
             copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
             filenames.add(filename);

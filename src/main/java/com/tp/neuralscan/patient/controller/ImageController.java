@@ -11,10 +11,19 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static java.nio.file.Files.copy;
+import static java.nio.file.Paths.get;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 @Tag(name = "Image", description = "Image API")
 @RestController
@@ -26,6 +35,9 @@ public class ImageController {
 
     @Autowired
     private ImageMapper imageMapper;
+
+
+    public static final String DIRECTORY = "C:/Users/Josmar/Documents/RM/DataSets/Dataset/Sano";
 
     @Operation(summary = "Get all Images", description = "Get all Images")
     @ApiResponses(value = {
@@ -59,6 +71,20 @@ public class ImageController {
     @DeleteMapping("{id}")
     public Optional<ResponseEntity<Object>> deleteImage(@PathVariable Long id) {
         return imageService.deleteImage(id);
+    }
+
+    @PostMapping ("{imageId}/upload")
+    public ResponseEntity <List<String>> uploadFiles(@PathVariable Long imageId, @RequestParam("files")List<MultipartFile> multipartFiles) throws IOException {
+        List<String> filenames = new ArrayList<>();
+        for (MultipartFile file : multipartFiles){
+            String filename = StringUtils.cleanPath(imageId.toString()+".jpg");
+            Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
+            copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
+            filenames.add(filename);
+        }
+
+        return ResponseEntity.ok().body(filenames);
+
     }
 
 }
