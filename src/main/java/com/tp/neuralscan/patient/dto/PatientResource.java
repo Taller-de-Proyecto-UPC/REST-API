@@ -13,6 +13,7 @@ public class PatientResource {
     private String phone;
     private String address;
     private String birthday;
+    private String dni;
     private String bloodType;
     private String diseases;
     private Float height;
