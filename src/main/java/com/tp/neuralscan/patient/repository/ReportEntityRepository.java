@@ -1,5 +1,6 @@
 package com.tp.neuralscan.patient.repository;
 
+import com.tp.neuralscan.doctor.model.DoctorEntity;
 import com.tp.neuralscan.patient.model.PatientEntity;
 import com.tp.neuralscan.patient.model.ReportEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,7 @@ public interface ReportEntityRepository extends JpaRepository<ReportEntity, Long
     ReportEntity findByDescription(String description);
 
     List<ReportEntity> findByPatientEntity(PatientEntity patientEntity);
+    List<ReportEntity> findByDoctorEntity(DoctorEntity doctorEntity);
+
 
 }

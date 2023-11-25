@@ -1,8 +1,11 @@
 package com.tp.neuralscan.patient.model;
 
-import com.tp.neuralscan.administrator.model.DoctorEntity;
+import com.tp.neuralscan.doctor.model.DoctorEntity;
+import com.tp.neuralscan.person.model.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.awt.*;
 
 @Builder
 @Getter
@@ -26,8 +29,15 @@ public class ReportEntity {
     @Column(name = "comment", length = 50, nullable = true)
     private String comment;
 
+    @OneToOne
+    @JoinColumn(name = "image_entity", referencedColumnName = "id")
+    private ImageEntity imageEntity;
+
     @ManyToOne
-    @JoinColumn(name = "patient_entity_id")
+    @JoinColumn(name = "patient_entity")
     private PatientEntity patientEntity;
 
+    @ManyToOne
+    @JoinColumn(name = "doctor_entity")
+    private DoctorEntity doctorEntity;
 }

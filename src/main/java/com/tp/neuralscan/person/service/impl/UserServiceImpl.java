@@ -2,10 +2,7 @@ package com.tp.neuralscan.person.service.impl;
 
 
 
-import com.tp.neuralscan.administrator.model.DoctorEntity;
-import com.tp.neuralscan.person.model.PersonEntity;
 import com.tp.neuralscan.person.model.UserEntity;
-import com.tp.neuralscan.person.repository.PersonEntityRepository;
 import com.tp.neuralscan.person.repository.UserEntityRepository;
 import com.tp.neuralscan.person.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

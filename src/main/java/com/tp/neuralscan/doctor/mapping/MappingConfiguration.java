@@ -1,4 +1,4 @@
-package com.tp.neuralscan.administrator.mapping;
+package com.tp.neuralscan.doctor.mapping;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

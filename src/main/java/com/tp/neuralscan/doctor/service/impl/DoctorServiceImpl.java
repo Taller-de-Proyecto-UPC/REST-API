@@ -1,9 +1,10 @@
-package com.tp.neuralscan.administrator.service.impl;
+package com.tp.neuralscan.doctor.service.impl;
 
 
-import com.tp.neuralscan.administrator.model.DoctorEntity;
-import com.tp.neuralscan.administrator.repository.DoctorEntityRepository;
-import com.tp.neuralscan.administrator.service.DoctorService;
+import com.tp.neuralscan.doctor.model.DoctorEntity;
+import com.tp.neuralscan.doctor.repository.DoctorEntityRepository;
+import com.tp.neuralscan.doctor.service.DoctorService;
+import com.tp.neuralscan.patient.model.ImageEntity;
 import com.tp.neuralscan.person.model.UserEntity;
 import com.tp.neuralscan.person.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,10 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public DoctorEntity updateDoctor(Long id, DoctorEntity doctorEntity) {
+    public DoctorEntity updateDoctor(Long id, DoctorEntity doctorEntity, String username) {
         DoctorEntity doctor = doctorEntityRepository.findById(id).orElseThrow();
+        UserEntity user = userEntityRepository.findByUsername(username);
+        doctor.setUserEntity(user);
         doctor.setName(doctorEntity.getName());
         doctor.setLastName(doctorEntity.getLastName());
         doctor.setEmail(doctorEntity.getEmail());
@@ -50,7 +53,6 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setBirthday(doctorEntity.getBirthday());
         doctor.setSpecialty(doctorEntity.getSpecialty());
         doctor.setCIP(doctorEntity.getCIP());
-        //doctorEntity.setUserEntity(doctor.getUserEntity());
         return doctorEntityRepository.save(doctor);
     }
 

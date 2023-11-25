@@ -9,4 +9,6 @@ public class CreateReportResource {
     private String summary;
     private String description;
     private String comment;
+    private CreateImageResource image;
+
 }

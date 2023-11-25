@@ -1,4 +1,4 @@
-package com.tp.neuralscan.administrator.dto;
+package com.tp.neuralscan.doctor.dto;
 
 import lombok.Getter;
 import lombok.Setter;

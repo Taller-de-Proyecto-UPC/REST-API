@@ -1,7 +1,6 @@
-package com.tp.neuralscan.administrator.dto;
+package com.tp.neuralscan.doctor.dto;
 
 import com.tp.neuralscan.person.dto.CreateUserResource;
-import com.tp.neuralscan.person.dto.UserResource;
 import lombok.Getter;
 import lombok.Setter;
 

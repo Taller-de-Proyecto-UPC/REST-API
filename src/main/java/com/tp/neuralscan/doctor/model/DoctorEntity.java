@@ -1,6 +1,7 @@
-package com.tp.neuralscan.administrator.model;
+package com.tp.neuralscan.doctor.model;
 
 import com.tp.neuralscan.patient.model.PatientEntity;
+import com.tp.neuralscan.patient.model.ReportEntity;
 import com.tp.neuralscan.person.model.PersonEntity;
 import com.tp.neuralscan.person.model.UserEntity;
 import jakarta.persistence.*;
@@ -35,4 +36,7 @@ public class DoctorEntity extends PersonEntity {
 
     @OneToMany(mappedBy = "doctorEntity", orphanRemoval = true)
     private List<PatientEntity> patients = new ArrayList<>();
+
+    @OneToMany(mappedBy = "doctorEntity", orphanRemoval = true)
+    private List<ReportEntity> reports  = new ArrayList<>();
 }

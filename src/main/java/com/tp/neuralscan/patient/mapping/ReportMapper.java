@@ -31,4 +31,9 @@ public class ReportMapper implements Serializable {
     public ReportEntity toEntity(UpdateReportResource report) {
         return modelMapper.map(report, ReportEntity.class);
     }
+
+    public ReportEntity toEntity(ReportResource report) {
+        return modelMapper.map(report, ReportEntity.class);
+    }
+
 }
