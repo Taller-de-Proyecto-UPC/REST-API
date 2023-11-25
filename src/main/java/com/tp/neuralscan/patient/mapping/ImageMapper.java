@@ -1,11 +1,9 @@
 package com.tp.neuralscan.patient.mapping;
 
-import com.tp.neuralscan.administrator.model.AdministratorEntity;
 import com.tp.neuralscan.patient.dto.CreateImageResource;
 import com.tp.neuralscan.patient.dto.ImageResource;
 import com.tp.neuralscan.patient.dto.UpdateImageResource;
 import com.tp.neuralscan.patient.model.ImageEntity;
-import com.tp.neuralscan.patient.model.PatientEntity;
 import com.tp.neuralscan.util.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 

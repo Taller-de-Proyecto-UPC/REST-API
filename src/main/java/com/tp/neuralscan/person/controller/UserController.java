@@ -45,7 +45,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User not found")})
     @PostMapping("/login")
     public UserResource loginDoctor(@RequestBody LoginPredictionResource loginPredictionResource) {
-        return userMapper.toResource(userService.login(loginPredictionResource.getEmail(),
+        return userMapper.toResource(userService.login(loginPredictionResource.getUsername(),
                 loginPredictionResource.getPassword()));
     }
 

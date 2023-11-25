@@ -12,4 +12,8 @@ public class UpdatePatientResource {
     private String phone;
     private String address;
     private String birthday;
+    private String bloodType;
+    private String diseases;
+    private Float height;
+    private Float weight;
 }

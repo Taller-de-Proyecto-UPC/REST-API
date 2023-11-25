@@ -1,11 +1,10 @@
-package com.tp.neuralscan.administrator.controller;
+package com.tp.neuralscan.doctor.controller;
 
-import com.tp.neuralscan.administrator.dto.CreateDoctorResource;
-import com.tp.neuralscan.administrator.dto.DoctorResource;
-import com.tp.neuralscan.administrator.dto.LoginPredictionResource;
-import com.tp.neuralscan.administrator.dto.UpdateDoctorResource;
-import com.tp.neuralscan.administrator.mapping.DoctorMapper;
-import com.tp.neuralscan.administrator.service.DoctorService;
+import com.tp.neuralscan.doctor.dto.CreateDoctorResource;
+import com.tp.neuralscan.doctor.dto.DoctorResource;
+import com.tp.neuralscan.doctor.dto.UpdateDoctorResource;
+import com.tp.neuralscan.doctor.mapping.DoctorMapper;
+import com.tp.neuralscan.doctor.service.DoctorService;
 import com.tp.neuralscan.person.mapping.UserMapper;
 import com.tp.neuralscan.person.model.UserEntity;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,14 +53,26 @@ public class DoctorController {
         return doctorMapper.toResource(doctorService.createDoctor(doctorMapper.toEntity(createDoctorResource), userEntity));
     }
 
+    @Operation(summary = "Get Doctor by username", description = "Get Doctor by username")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the Doctor"),
+            @ApiResponse(responseCode = "404", description = "Doctor not found")})
+    @GetMapping("/username/{username}")
+    public DoctorResource getDoctorByUsername(@PathVariable(name = "username") String username) {
+        return doctorMapper.toResource(doctorService.findByUsername(username));
+    }
+
     @Operation(summary = "Update Doctor", description = "Update Doctor")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Updated Doctor"),
             @ApiResponse(responseCode = "404", description = "Doctor not updated")})
     @PutMapping("/{id}")
     public DoctorResource updateDoctor(@PathVariable(name = "id") Long id, @RequestBody UpdateDoctorResource updateDoctorResource) {
+        UserEntity userEntity = userMapper.toEntity(updateDoctorResource.getUser());
+        String username = updateDoctorResource.getUser().getUsername();
+
         return doctorMapper.toResource(doctorService.updateDoctor(id,
-                doctorMapper.toEntity(updateDoctorResource)));
+                doctorMapper.toEntity(updateDoctorResource),username));
     }
 
     @Operation(summary = "Delete doctor", description = "Delete doctor")

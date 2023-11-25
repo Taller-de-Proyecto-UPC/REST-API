@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class LoginPredictionResource {
     private String password;
-    private String email;
+    private String username;
 }

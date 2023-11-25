@@ -10,5 +10,7 @@ public class ReportResource {
     private String summary;
     private String description;
     private String comment;
+    private CreateImageResource image;
+
     //private PatientResource patient;
 }

@@ -1,6 +1,6 @@
 package com.tp.neuralscan.patient.model;
 
-import com.tp.neuralscan.administrator.model.DoctorEntity;
+import com.tp.neuralscan.doctor.model.DoctorEntity;
 import com.tp.neuralscan.person.model.PersonEntity;
 import jakarta.persistence.*;
 import lombok.*;

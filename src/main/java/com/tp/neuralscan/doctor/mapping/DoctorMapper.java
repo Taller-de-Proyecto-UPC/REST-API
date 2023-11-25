@@ -1,10 +1,10 @@
-package com.tp.neuralscan.administrator.mapping;
+package com.tp.neuralscan.doctor.mapping;
 
 
-import com.tp.neuralscan.administrator.dto.CreateDoctorResource;
-import com.tp.neuralscan.administrator.dto.DoctorResource;
-import com.tp.neuralscan.administrator.dto.UpdateDoctorResource;
-import com.tp.neuralscan.administrator.model.DoctorEntity;
+import com.tp.neuralscan.doctor.dto.CreateDoctorResource;
+import com.tp.neuralscan.doctor.dto.DoctorResource;
+import com.tp.neuralscan.doctor.dto.UpdateDoctorResource;
+import com.tp.neuralscan.doctor.model.DoctorEntity;
 import com.tp.neuralscan.util.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
