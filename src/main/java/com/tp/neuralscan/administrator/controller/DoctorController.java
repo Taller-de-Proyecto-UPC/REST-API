@@ -6,6 +6,8 @@ import com.tp.neuralscan.administrator.dto.LoginPredictionResource;
 import com.tp.neuralscan.administrator.dto.UpdateDoctorResource;
 import com.tp.neuralscan.administrator.mapping.DoctorMapper;
 import com.tp.neuralscan.administrator.service.DoctorService;
+import com.tp.neuralscan.person.mapping.UserMapper;
+import com.tp.neuralscan.person.model.UserEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,6 +31,9 @@ public class DoctorController {
     @Autowired
     private DoctorMapper doctorMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Operation(summary = "Get all doctors", description = "Get all Doctors")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found all Doctors"),
@@ -44,7 +49,9 @@ public class DoctorController {
             @ApiResponse(responseCode = "404", description = "Doctor not created")})
     @PostMapping("/create")
     public DoctorResource createDoctor(@RequestBody CreateDoctorResource createDoctorResource) {
-        return doctorMapper.toResource(doctorService.createDoctor(doctorMapper.toEntity(createDoctorResource)));
+        UserEntity userEntity = userMapper.toEntity(createDoctorResource.getUser());
+
+        return doctorMapper.toResource(doctorService.createDoctor(doctorMapper.toEntity(createDoctorResource), userEntity));
     }
 
     @Operation(summary = "Update Doctor", description = "Update Doctor")

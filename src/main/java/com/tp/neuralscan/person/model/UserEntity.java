@@ -4,6 +4,7 @@ import com.tp.neuralscan.administrator.model.DoctorEntity;
 import com.tp.neuralscan.patient.model.PatientEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "user_entity")
 @NoArgsConstructor
+@Transactional
 @AllArgsConstructor
 public class UserEntity {
     @Id
@@ -30,6 +32,4 @@ public class UserEntity {
     @Column(name = "role", length = 50, nullable = false)
     private String role;
 
-    @OneToOne(mappedBy = "userEntity")
-    private DoctorEntity doctorEntity;
 }

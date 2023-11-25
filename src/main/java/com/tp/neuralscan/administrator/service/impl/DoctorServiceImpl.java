@@ -33,11 +33,9 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public DoctorEntity createDoctor(DoctorEntity doctorEntity) {
-        UserEntity user = userEntityRepository.save(doctorEntity.getUserEntity());
-        logger.info("User info: {}", user);
-
-        doctorEntity.setUserEntity(userEntityRepository.findById(user.getId()).orElse(null));
+    public DoctorEntity createDoctor(DoctorEntity doctorEntity, UserEntity userEntity) {
+        UserEntity user = userEntityRepository.save(userEntity);
+        doctorEntity.setUserEntity(user);
         return doctorEntityRepository.save(doctorEntity);
     }
 
