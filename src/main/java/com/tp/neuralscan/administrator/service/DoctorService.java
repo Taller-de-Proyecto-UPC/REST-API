@@ -14,6 +14,8 @@ public interface DoctorService {
     List<DoctorEntity> getAllDoctors();
     DoctorEntity createDoctor(DoctorEntity DoctorEntity, UserEntity userEntity);
     DoctorEntity updateDoctor(Long id, DoctorEntity DoctorEntity);
+
+    DoctorEntity findByUsername(String username);
     Optional<ResponseEntity<Object>> deleteDoctor(Long doctorId);
 
 }

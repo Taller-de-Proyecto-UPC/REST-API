@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity createUser(UserEntity userEntity) {
+
         return userEntityRepository.save(userEntity);
     }
 
@@ -44,9 +45,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity login(String username, String password) {
+
         UserEntity userEntity = userEntityRepository.findByUsernameAndPassword(username, password);
         if (userEntity == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        System.out.println("Doctor info: ");
+
         return userEntity;
     }
 

@@ -55,6 +55,13 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public DoctorEntity findByUsername(String username) {
+        DoctorEntity doctor = doctorEntityRepository.findByUserEntityUsername(username);
+
+        return doctor;
+    }
+
+    @Override
     public Optional<ResponseEntity<Object>> deleteDoctor(Long doctorId) {
         return doctorEntityRepository.findById(doctorId).map(doctor -> {
             doctorEntityRepository.delete(doctor);
