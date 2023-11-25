@@ -13,7 +13,6 @@ public interface PatientService {
     List<PatientEntity> getAllPatients();
     PatientEntity createPatient(PatientEntity Patient, Long doctorId);
     PatientEntity updatePatient(Long id, PatientEntity Patient);
-
     Optional<ResponseEntity<Object>> deletePatient(Long patientId);
 
 }
