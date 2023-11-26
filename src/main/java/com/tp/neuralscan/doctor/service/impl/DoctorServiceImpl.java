@@ -53,6 +53,7 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setBirthday(doctorEntity.getBirthday());
         doctor.setSpecialty(doctorEntity.getSpecialty());
         doctor.setCIP(doctorEntity.getCIP());
+
         return doctorEntityRepository.save(doctor);
     }
 
