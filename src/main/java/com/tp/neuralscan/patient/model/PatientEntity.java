@@ -20,7 +20,7 @@ public class PatientEntity extends PersonEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "dni", length = 8, nullable = false)
+    @Column(name = "dni", length = 8, nullable = false, unique = true)
     private String dni;
 
     @Column(name = "bloodType", length = 50, nullable = false)
