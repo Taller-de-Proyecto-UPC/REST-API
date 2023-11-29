@@ -2,14 +2,17 @@ package com.tp.neuralscan.patient.controller;
 
 import com.tp.neuralscan.patient.dto.PatientResource;
 import com.tp.neuralscan.patient.dto.CreatePatientResource;
+import com.tp.neuralscan.patient.dto.ReportResource;
 import com.tp.neuralscan.patient.dto.UpdatePatientResource;
 import com.tp.neuralscan.patient.mapping.PatientMapper;
+import com.tp.neuralscan.patient.repository.PatientEntityRepository;
 import com.tp.neuralscan.patient.service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +31,9 @@ public class PatientController {
     @Autowired
     private PatientMapper patientMapper;
 
+    @Autowired
+    private PatientEntityRepository patientEntityRepository;
+
     @Operation(summary = "Get all Patients", description = "Get all Patients")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found all Patients"),
@@ -42,8 +48,32 @@ public class PatientController {
             @ApiResponse(responseCode = "200", description = "Created Patient"),
             @ApiResponse(responseCode = "404", description = "Patient not created")})
     @PostMapping("{doctorId}/create")
-    public PatientResource createPatient(@RequestBody CreatePatientResource createPatientResource, @PathVariable("doctorId") Long doctorId) {
-        return patientMapper.toResource(patientService.createPatient(patientMapper.toEntity(createPatientResource), doctorId));
+    public ResponseEntity<?> createPatient(
+            @RequestBody CreatePatientResource createPatientResource,
+            @PathVariable("doctorId") Long doctorId
+    ) {
+        if (patientEntityRepository.findByDni(createPatientResource.getDni()) != null) {
+            // El paciente ya existe, devolver ResponseEntity con un mensaje de error
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ese DNI ya existe");
+        } else {
+            // El paciente no existe, continuar con la creación del paciente
+            PatientResource patientResource = patientMapper.toResource(
+                    patientService.createPatient(patientMapper.toEntity(createPatientResource), doctorId)
+            );
+            return ResponseEntity.ok(patientResource);
+        }
+    }
+
+    @Operation(summary = "Get patient by DNI", description = "Get patient by DNI")
+    @GetMapping("dni/{dni}")
+    public PatientResource getPatientByDni(@PathVariable String dni) {
+        return patientMapper.toResource(patientService.getPatientByDni(dni));
+    }
+
+    public class PatientAlreadyExistsException extends RuntimeException {
+        public PatientAlreadyExistsException(String message) {
+            super(message);
+        }
     }
 
     @Operation(summary = "Update Patient", description = "Update Patient")

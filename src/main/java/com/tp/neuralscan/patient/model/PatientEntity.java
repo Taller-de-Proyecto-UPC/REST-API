@@ -23,16 +23,16 @@ public class PatientEntity extends PersonEntity {
     @Column(name = "dni", length = 8, nullable = false, unique = true)
     private String dni;
 
-    @Column(name = "bloodType", length = 50, nullable = false)
+    @Column(name = "bloodType", length = 50, nullable = true)
     private String bloodType;
 
-    @Column(name = "diseases", length = 50, nullable = false)
+    @Column(name = "diseases", length = 50, nullable = true)
     private String diseases;
 
-    @Column(name = "height", length = 50, nullable = false)
+    @Column(name = "height", length = 50, nullable = true)
     private Float height;
 
-    @Column(name = "weight", length = 50, nullable = false)
+    @Column(name = "weight", length = 50, nullable = true)
     private Float weight;
 
     @ManyToOne
