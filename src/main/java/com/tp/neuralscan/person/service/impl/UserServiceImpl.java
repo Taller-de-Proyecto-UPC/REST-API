@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
         user_updated.setRole(userEntity.getRole());
         user_updated.setPassword(userEntity.getPassword());
         user_updated.setUsername(userEntity.getUsername());
+        user_updated.setActive(userEntity.getActive());
 
         return userEntityRepository.save(user_updated);    }
 

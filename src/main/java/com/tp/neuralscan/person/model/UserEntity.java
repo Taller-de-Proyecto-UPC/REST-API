@@ -27,4 +27,7 @@ public class UserEntity {
     @Column(name = "role", length = 50, nullable = false)
     private String role;
 
+    @Column(name = "active", length = 50, nullable = false)
+    private Boolean active;
+
 }

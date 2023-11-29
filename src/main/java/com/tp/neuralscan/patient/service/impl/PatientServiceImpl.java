@@ -52,6 +52,14 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public PatientEntity getPatientByDni(String dni) {
+        if(patientEntityRepository.findByDni(dni) != null)
+            return patientEntityRepository.findByDni(dni);
+        else
+            return null;
+    }
+
+    @Override
     public Optional<ResponseEntity<Object>> deletePatient(Long patientId) {
         return patientEntityRepository.findById(patientId).map(patient -> {
             patientEntityRepository.delete(patient);

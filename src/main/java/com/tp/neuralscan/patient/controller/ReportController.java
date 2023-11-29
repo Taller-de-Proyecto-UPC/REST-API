@@ -70,9 +70,7 @@ public class ReportController {
     @PostMapping("doctor/{doctorId}/patient/{patientId}/create")
     public ReportResource createReport(@RequestBody CreateReportResource createReportResource, @PathVariable("doctorId") Long doctorId, @PathVariable("patientId") Long patientId) {
         ImageEntity imageEntity = imageMapper.toEntity(createReportResource.getImage());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String currentDate = dateFormat.format(new Date());
-        imageEntity.setAdded(currentDate);
+        imageEntity.setAdded("No image yet");
         imageEntity.setPath(DIRECTORY);
 
         return reportMapper.toResource(reportService.createReport(reportMapper.toEntity(createReportResource), doctorId, patientId, imageEntity));
@@ -104,6 +102,8 @@ public class ReportController {
     public ResponseEntity <List<String>> uploadFiles(@PathVariable Long reportId, @RequestParam("files")List<MultipartFile> multipartFiles) throws IOException{
         ReportEntity report = reportService.getReportById(reportId);
         ImageEntity image = report.getImageEntity();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = dateFormat.format(new Date());
 
         List<String> filenames = new ArrayList<>();
         for (MultipartFile file : multipartFiles){
@@ -113,6 +113,8 @@ public class ReportController {
             filenames.add(filename);
             report.getImageEntity().setPath(image.getPath()+"/"+filename);
         }
+        report.getImageEntity().setAdded(currentDate);
+
         reportService.updateReport(reportId, report);
 
         return ResponseEntity.ok().body(filenames);
