@@ -43,7 +43,7 @@ public class Person {
         newPerson.setBirthday(birthday);
 
         PersonEntity person = restTemplate.postForObject(postUrl,newPerson, PersonEntity.class);
-
+        //PersonEntity person2 = restTemplate.getForObject(postUrl,)
         assertNotNull(person);
     }
 
@@ -69,14 +69,14 @@ public class Person {
 
     @Given("I want to update a person")
     public void i_want_to_update_a_person() {
-        String postUrl = url +"person/"+ 1;
+        String putUrl = url +"person/"+ 1;
         //log.info(postUrl);
         assertTrue(true);
     }
 
     @When("I update a person with {string}, {string}, {string}, {string}, {string} and {string}")
     public void i_update_a_person_with_and(String name, String lastName, String email, String phone, String address, String birthday) {
-        String postUrl = url +"person/1";
+        String putUrl = url +"person/1";
 
         PersonEntity newPerson = new PersonEntity();
         newPerson.setName(name);
@@ -86,7 +86,7 @@ public class Person {
         newPerson.setAddress(address);
         newPerson.setBirthday(birthday);
 
-        restTemplate.put(postUrl,newPerson);
+        restTemplate.put(putUrl,newPerson);
         assertTrue(true);
 
     }
@@ -122,6 +122,38 @@ public class Person {
         && Objects.equals(email,personUpdated.getEmail()) && Objects.equals(phone,personUpdated.getPhone())
         && Objects.equals(address,personUpdated.getAddress()) && Objects.equals(birthday,personUpdated.getBirthday()))
             assertTrue(true);
+
+    }
+
+    @Given("I want to get all persons")
+    public void i_want_to_get_all_persons() {
+        String getUrl = url +"person";
+        assertTrue(true);
+    }
+
+    @When("I get all persons")
+    public void i_get_all_persons() {
+        String getUrl = url + "person";
+        
+        assertTrue(true);
+    }
+
+    @Then("the system get all persons")
+    public void the_system_get_all_persons() {
+        String getUrl = url +"person";
+
+        ResponseEntity<List<PersonEntity>> response = restTemplate.exchange(
+                getUrl,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<PersonEntity>>(){}
+        );
+
+        assertEquals(200, response.getStatusCodeValue());
+
+        List<PersonEntity> allPersons = response.getBody();
+        assertNotNull(allPersons);
+        assertFalse(allPersons.isEmpty());
 
     }
 
