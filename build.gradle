@@ -15,6 +15,11 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+
+    //Esto se agrego para Cucumber
+    cucumberRunTime{
+        extendsFrom testImplementation
+    }
 }
 
 repositories {
@@ -24,10 +29,14 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    testImplementation 'org.projectlombok:lombok:1.18.28'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //Esto se agrego para Cucumber
+    testImplementation 'io.cucumber:cucumber-java:5.6.0'
+    testImplementation 'io.cucumber:cucumber-junit:5.6.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.1.2'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.1.2'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: '3.1.2'
@@ -40,6 +49,20 @@ dependencies {
 
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+//Esto se agrego para cucumber
+task cucumber(){
+    dependsOn assemble, compileTestJava
+    doLast{
+        javaexec{
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/test-report',
+                    '--glue', 'com.baeldung.cucumber',
+                    'src/test/resources'
+            ]
+
+        }
+    }
 }
