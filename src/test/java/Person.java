@@ -155,6 +155,11 @@ public class Person {
         assertNotNull(allPersons);
         assertFalse(allPersons.isEmpty());
 
+        System.out.println("Lista de entidades de persona:");
+        for (PersonEntity person : allPersons) {
+            System.out.println(person.getName().toString()+" "+person.getLastName().toString());
+        }
+
     }
 
 }
