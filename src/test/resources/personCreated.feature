@@ -9,7 +9,3 @@ Feature: Person is created
       | name     | lastname | email         | phone       | address           | birthday   |
       | "josmar" | "vela"   | "j@gmail.com" | "939260169" | "los molinos 639" | "03/04/98" |
 
-
-
-
-

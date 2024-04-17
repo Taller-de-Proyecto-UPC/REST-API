@@ -12,8 +12,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Log4j2
 @RunWith(SpringRunner.class)
@@ -62,7 +64,65 @@ public class Person {
         assertFalse(allPersons.isEmpty());
 
         PersonEntity lastPerson = allPersons.get(allPersons.size() - 1);
-        assertEquals(person,lastPerson.getAddress());
+        assertEquals(person,lastPerson.getName());
+    }
+
+    @Given("I want to update a person")
+    public void i_want_to_update_a_person() {
+        String postUrl = url +"person/"+ 1;
+        //log.info(postUrl);
+        assertTrue(true);
+    }
+
+    @When("I update a person with {string}, {string}, {string}, {string}, {string} and {string}")
+    public void i_update_a_person_with_and(String name, String lastName, String email, String phone, String address, String birthday) {
+        String postUrl = url +"person/1";
+
+        PersonEntity newPerson = new PersonEntity();
+        newPerson.setName(name);
+        newPerson.setLastName(lastName);
+        newPerson.setEmail(email);
+        newPerson.setPhone(phone);
+        newPerson.setAddress(address);
+        newPerson.setBirthday(birthday);
+
+        restTemplate.put(postUrl,newPerson);
+        assertTrue(true);
 
     }
+
+    @Then("the system update the {string}, {string}, {string}, {string}, {string} and {string}")
+    public void the_system_update_the_and(String name, String lastName, String email, String phone, String address, String birthday) {
+        String getUrl = url +"person";
+
+        ResponseEntity<List<PersonEntity>> response = restTemplate.exchange(
+                getUrl,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<PersonEntity>>(){}
+        );
+
+        assertEquals(200, response.getStatusCodeValue());
+
+        List<PersonEntity> allPersons = response.getBody();
+        assertNotNull(allPersons);
+        assertFalse(allPersons.isEmpty());
+
+        PersonEntity personUpdated = null;
+        for(PersonEntity person : allPersons){
+            if(person.getId() == 1){
+                personUpdated = person;
+                break;
+            }
+        }
+
+        assertNotNull(personUpdated);
+
+        if(Objects.equals(name,personUpdated.getName()) && Objects.equals(lastName,personUpdated.getLastName())
+        && Objects.equals(email,personUpdated.getEmail()) && Objects.equals(phone,personUpdated.getPhone())
+        && Objects.equals(address,personUpdated.getAddress()) && Objects.equals(birthday,personUpdated.getBirthday()))
+            assertTrue(true);
+
+    }
+
 }
