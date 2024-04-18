@@ -7,5 +7,5 @@ Feature: Patient is created
 
     Examples:
       | name      | lastname      | email            | phone       | address           | birthday   | dni        | bloodType | diseases | height | weight |
-      | "Jorge"   | "Chombo"      | "marc@gmail.com" | "986532741" | "av. alcazar 452" | "03/04/98" | "84956251" | "B"       | "fiebre" | 1.72   | 70.0   |
+      | "Math"    | "MP"          | "Theo@gmail.com" | "986532741" | "av. alcazar 452" | "03/04/98" | "98748989" | "B"       | "fiebre" | 1.72   | 70.0   |
 
