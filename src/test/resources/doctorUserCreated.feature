@@ -8,5 +8,3 @@ Feature: Doctor user is created
     Examples:
       | username   | password     | role     |
       | "user"     | "password"   | "doctor" |
-
-
