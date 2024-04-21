@@ -136,5 +136,50 @@ public class Patient {
     }
 
 
+    @Given("I want to see all the patients registered")
+    public void i_want_to_see_all_the_patients_registered() {
+        String getUrl = url + "patient";
+        //log.info(getUrl);
+        assertTrue(true);
+    }
+
+
+    @When("I look to the patient list")
+    public void i_look_to_the_patient_list() {
+        String getUrl = url + "patient";
+
+        ResponseEntity<List<PatientEntity>> response = restTemplate.exchange(
+                getUrl,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<PatientEntity>>() {
+                }
+        );
+
+        assertEquals(200,response.getStatusCodeValue());
+
+        List<PatientEntity> allPatients = response.getBody();
+        assertNotNull(allPatients);
+
+    }
+
+
+    @Then("the system shows all the patients in the database")
+    public void the_system_shows_all_the_patients_in_the_database() {
+        String getUrl = url + "patient";
+
+        ResponseEntity<List<PatientEntity>> response = restTemplate.exchange(
+                getUrl,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<PatientEntity>>() {
+                }
+        );
+
+        List<PatientEntity> allPatients = response.getBody();
+        assertNotNull(allPatients);
+
+    }
+
 
 }

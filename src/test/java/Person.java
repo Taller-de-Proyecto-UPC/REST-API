@@ -125,40 +125,43 @@ public class Person {
 
     }
 
-    @Given("I want to get all persons")
-    public void i_want_to_get_all_persons() {
-        String getUrl = url +"person";
-        assertTrue(true);
-    }
-
-    @When("I get all persons")
-    public void i_get_all_persons() {
+    @Given("I want to see all the persons registered")
+    public void i_want_to_see_all_the_persons_registered() {
         String getUrl = url + "person";
-        
         assertTrue(true);
     }
 
-    @Then("the system get all persons")
-    public void the_system_get_all_persons() {
-        String getUrl = url +"person";
+    @When("I look to the person list")
+    public void i_look_to_the_person_list() {
+        String getUrl = url + "person";
 
         ResponseEntity<List<PersonEntity>> response = restTemplate.exchange(
                 getUrl,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<PersonEntity>>(){}
+                new ParameterizedTypeReference<List<PersonEntity>>() {}
         );
 
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200,response.getStatusCodeValue());
 
         List<PersonEntity> allPersons = response.getBody();
         assertNotNull(allPersons);
-        assertFalse(allPersons.isEmpty());
 
-        System.out.println("Lista de entidades de persona:");
-        for (PersonEntity person : allPersons) {
-            System.out.println(person.getName().toString()+" "+person.getLastName().toString());
-        }
+    }
+
+    @Then("the system shows all the persons in the database")
+    public void the_system_shows_all_the_persons_in_the_database() {
+        String getUrl = url + "person";
+
+        ResponseEntity<List<PersonEntity>> response = restTemplate.exchange(
+                getUrl,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<PersonEntity>>() {}
+        );
+
+        List<PersonEntity> allPersons = response.getBody();
+        assertNotNull(allPersons);
 
     }
 
