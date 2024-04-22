@@ -7,4 +7,4 @@ Feature: Person is updated
 
     Examples:
       | name      | lastname        | email           | phone       | address           | birthday   |
-      | "newName" | "newLastName"   | "new@gmail.com" | "987654322"  | "av. alcazar"     | "13/01/00" |
+      | "newName" | "newLastName"   | "new@gmail.com" | "98778322"  | "av. alcazar"     | "13/01/00" |

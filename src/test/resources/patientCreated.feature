@@ -6,6 +6,6 @@ Feature: Patient is created
     Then the system create a new patient <dni>
 
     Examples:
-      | name      | lastname      | email            | phone       | address           | birthday   | dni        | bloodType | diseases | height | weight |
-      | "Math"    | "MP"          | "Theo@gmail.com" | "986532741" | "av. alcazar 452" | "03/04/98" | "98748989" | "B"       | "fiebre" | 1.72   | 70.0   |
+      | name         | lastname      | email            | phone       | address           | birthday   | dni        | bloodType | diseases | height | weight |
+      | "Math123"    | "MP"          | "Theo@gmail.com" | "986532741" | "av. alcazar 452" | "03/04/98" | "98748478" | "B"       | "fiebre" | 1.72   | 70.0   |
 

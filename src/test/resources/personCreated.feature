@@ -7,5 +7,5 @@ Feature: Person is created
 
     Examples:
       | name     | lastname | email         | phone       | address           | birthday   |
-      | "josmar" | "vela"   | "j@gmail.com" | "939260169" | "los molinos 639" | "03/04/98" |
+      | "josmar" | "vela"   | "j@gmail.com" | "939789169" | "los molinos 639" | "03/04/98" |
 
