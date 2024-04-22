@@ -181,5 +181,36 @@ public class Patient {
 
     }
 
+    private String dni;
+    private PatientEntity patient;
+
+    @Given("I want to see the patient registered with DNI {string}")
+    public void i_want_to_see_the_patient_registered_with_DNI(String dni) {
+        this.dni=dni;
+    }
+
+    @When("I look for the patient")
+    public void i_look_for_the_patient() {
+        String getUrl = url + "patient/dni/" + dni;
+
+        ResponseEntity<PatientEntity> response = restTemplate.exchange(
+                getUrl,
+                HttpMethod.GET,
+                null,
+                PatientEntity.class
+        );
+
+        assertEquals(200, response.getStatusCodeValue());
+
+        patient = response.getBody();
+        assertNotNull(patient);
+
+    }
+
+    @Then("the system shows the patient in the database")
+    public void the_system_shows_the_patient_in_the_database() {
+        assertNotNull(patient);
+    }
+
 
 }
