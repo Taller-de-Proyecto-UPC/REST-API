@@ -1,6 +1,4 @@
 import com.tp.neuralscan.patient.model.ImageEntity;
-import com.tp.neuralscan.patient.model.PatientEntity;
-import com.tp.neuralscan.person.model.PersonEntity;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -8,8 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
@@ -158,5 +155,32 @@ public class Image {
         assertNotNull(allImages);
     }
 
+
+    @Given("I want to deleted a image")
+    public void i_want_to_deleted_a_image() {
+        String deleteUrl = url + "image/"+ 8;
+        assertTrue(true);
+    }
+
+    private ResponseEntity<String> response;
+    @When("I deleted a image with {int}")
+    public void i_deleted_a_image_with(Integer id) {
+        String deleteUrl = url + "image/"+ id.toString();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        // Perform the DELETE request
+        RestTemplate restTemplate = new RestTemplate();
+        response = restTemplate.exchange(deleteUrl, HttpMethod.DELETE, entity, String.class);
+
+    }
+
+
+    @Then("the system deleted the image")
+    public void the_system_deleted_the_image() {
+        assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
+    }
 
 }
