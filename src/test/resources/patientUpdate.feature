@@ -7,5 +7,5 @@ Feature: Patient is updated
 
     Examples:
       | name      | lastname      | email            | phone       | address        | birthday   | bloodType | diseases | height | weight |
-      | "new"     | "newlast"     | "new@gmail.com"  | "123456789" | "av. new 452"  | "03/04/98" | "B"       | "fiebre" | 1.72   | 70.0   |
+      | "uno"     | "Dociadf"     | "new@gmail.com"  | "123456789" | "av. new 452"  | "03/04/98" | "B"       | "fiebre" | 1.72   | 70.0   |
 
