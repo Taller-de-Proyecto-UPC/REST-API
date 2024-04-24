@@ -1,5 +1,4 @@
 import com.tp.neuralscan.person.model.UserEntity;
-import com.tp.neuralscan.person.repository.UserEntityRepository;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,8 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserStepsDefinition {
     String url = "http://localhost:8080/api/v1/";
     private RestTemplate restTemplate = new RestTemplate();
-
-
 
     @Given("I want to access to the application")
     public void iWantToAccessToTheApplication() {

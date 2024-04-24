@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Log4j2
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class Person {
+public class PersonStepsDefinition {
 
     String url = "http://localhost:8080/api/v1/";
     private RestTemplate restTemplate = new RestTemplate();

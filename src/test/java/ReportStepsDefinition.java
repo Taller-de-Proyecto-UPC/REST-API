@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Log4j2
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class Report {
+public class ReportStepsDefinition {
 
     String url = "http://localhost:8080/api/v1/";
     private RestTemplate restTemplate = new RestTemplate();
