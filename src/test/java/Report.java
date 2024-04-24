@@ -276,7 +276,11 @@ public class Report {
         String postUrl = url + "report/doctor/" + doctorId + "/patient/" + patientId + "/create";
 
         // Construir el cuerpo de la solicitud (en tu caso, deberías construir el JSON)
-        String jsonInputString = "{\"summary\":\"nuevo informe\",\"description\":\"Descripción detallada del nuevo\",\"comment\":\"Comentarios adicionales\",\"image\":{\"path\":\"C:/Users/user/Pictures/Melosita\",\"added\":\"Logo.png\"}}";
+        String jsonInputString = "{\"summary\":\"nuevo informe\"," +
+                "\"description\":\"Descripción detallada del nuevo\"," +
+                "\"comment\":\"Comentarios adicionales\"," +
+                "\"image\":{\"path\":\"C:/Users/user/Pictures/Melosita\"," +
+                "\"added\":\"Logo.png\"}}";
 
         // Configurar la solicitud HTTP
         HttpHeaders headers = new HttpHeaders();
